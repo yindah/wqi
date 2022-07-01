@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<title> Descriptive Analysis </title>
+</head>
+<body>
+<!-- Navbar-->
+		<nav class="navbar navbar-dark bg-dark">
+      <!--copy and paste the a href in any page u wish to have this navigation-->
+      <!--route name changes must be sync with app.py - function name and app route name -->
+			<span class="navbar-brand mb-0 h1">Water Quality Monitoring System</span>
+      <a href="{{url_for('descriptive')}}" class="w3-bar-item w3-button w3-hover-green">Descriptive</a>
+      <a href="{{url_for('anomaly')}}" class="w3-bar-item w3-button w3-hover-blue">Outlier Detection</a>
+      <a href="{{url_for('predictpage')}}" class="w3-bar-item w3-button w3-hover-teal">Predictive</a>
+      <a href="{{url_for('feedbackpage')}}" class="w3-bar-item w3-button w3-hover-teal">Feedback</a>
+      <a href="{{url_for('logout_nav')}}" class="w3-bar-item w3-button w3-hover-teal">Log Out</a></nav>
+</div>
+<div  style="align-items: center;">
+<table>
+<h1>
+<!--Displaying the converted table-->
+{% for table in tables %}
+<h2>{{titles[loop.index]}}</h2>
+{{ table|safe }}
+{% endfor %}
+</h1>
+</table>
+</div>
+
+<div class="container">
+  <div class="row h-100">
+    <div class="col-4" style="min-width: 300px;">
+      <form class="container">
+        <!-- feature1 for X axis -->
+        <div class="form-group">
+          <label>Chart type: </label>
+          <select class="form-select form-select-lg m-1" name="chart_type" id="chart_type">
+            {% for chart in chart_type %}
+            <option value="{{ chart }}" {% if chart==chart_type_selection %} selected{% endif %}>{{ chart }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- feature1 for X axis -->
+        <div class="form-group">
+          <label>Feature 1 for X-axis: </label>
+          <select class="form-select form-select-lg m-1" name="feature1" id="feature1">
+            {% for feature in features %}
+            <option value="{{ feature }}" {% if feature==ui_sync_f1 %} selected{% endif %}>{{ feature }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <!-- feature1 for Y axis -->
+        <div class="form-group" id='feature2_section'>
+          <label>Feature 2 for Y-axis(Heatmap only or Month X-axis only):</label>
+          <select class="form-select form-select-lg m-1" name="feature2" id="feature2">
+            {% for feature in features2 %}
+            <option value="{{ feature }}" {% if feature==ui_sync_f2 %} selected{% endif %}>{{ feature }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button class="btn btn-success" id='Plot'>Plot Chart</button>
+
+      </form>
+    </div>
+    <div class="col-6">
+      <div class="container">
+        <div class="col" style="min-width:40vw;">
+          <img id="graph_image" src="{{ url_for('descriptive_graph_src') }}"
+            style="width:100%; height:80%; object-fit:contain;">
+          <div class="loader" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  console.log("relaoded", Date.now())
+   //process outlier button
+$('#Plot').click(function () {
+  
+  $('.loader').show();
+  
+  //jquery get value from text form
+  let chart_type = $('#chart_type').find(":selected").text();
+  let f1 = $('#feature1').find(":selected").text();
+  let f2 = $('#feature2').find(":selected").text();
+ 
+  console.log('DATA::',chart_type)
+  //construct ajax data
+  var data = new FormData();
+  data.append('chart_type', chart_type);
+  data.append('f1', f1);
+  data.append('f2', f2);
+  console.log('DATA::',data)
+  $.ajax({
+      type: 'POST',
+      url: '/generate_descriptive_image',
+      data: data,
+      contentType: false,
+      cache: false,
+      processData: false,
+      async: true,
+      success: function(data) {
+          // Get and display the result
+          $('.loader').hide();
+          if(data["ok"] == "true"){
+              console.log("success");
+              d = new Date();
+              //$("#graph_image").attr("src", "{{ url_for('descriptive_graph_src') }}");
+              //setTimeout('', 1000);
+              $("#graph_image").attr("src", "{{ url_for('descriptive_graph_src') }}?"+d.getTime());
+              
+          }
+      },
+      error: function() {
+          $('.loader').hide();
+          alert("Unexpected Error!");
+      },
+  });
+});
+</script>
+</body>
+</html>

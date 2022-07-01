@@ -1,0 +1,84 @@
+<html>
+	<head>
+	<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+		<title>Water Quality</title>
+	</head>
+	<body>
+	<!-- Java Script -->	
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	
+		<!-- Navbar-->
+		<nav class="navbar navbar-dark bg-dark">
+			<span class="navbar-brand mb-0 h1">Water Quality Monitoring System</span>
+			<a href="{{url_for('descriptive')}}" class="w3-bar-item w3-button w3-hover-green">Descriptive</a>
+			<a href="{{url_for('anomaly')}}" class="w3-bar-item w3-button w3-hover-blue">Outlier Detection</a>
+			<a href="{{url_for('predictpage')}}" class="w3-bar-item w3-button w3-hover-teal">Predictive</a>
+			<a href="{{url_for('feedbackpage')}}" class="w3-bar-item w3-button w3-hover-teal">Feedback</a>
+			<a href="{{url_for('logout_nav')}}" class="w3-bar-item w3-button w3-hover-teal">Log Out</a>
+  
+</div>
+		</nav>
+		<div class="container">
+			<br>
+			<!--Form-->
+			<form action = "{{url_for('predict')}}" method ="POST" >
+				<fieldset>
+				<legend>Water Quality Prediction Form</legend><br>
+				  <div class="card card-body" >
+					  <div class="form-group  row">
+						<div class="col-sm-3">
+							<label for="amb-temp">Ambient Temperature</label>
+							<input type="number" class="form-control" id="amb-temp" name="amb-temp" required>
+						</div>
+						<div class="col-sm-3">
+							<label for="do">Dissolve Oxygen</label>
+							<input type="number" class="form-control" id="do" name="do" required>
+					   </div>
+					  </div>
+					  <br>
+					  <div class="form-group  row">
+						  <div class="col-sm">
+							<label for="ec">Electric Conductivity</label>
+							<input type="number" class="form-control" id="ec" name="ec" required>
+							</select>
+						  </div>
+						  <div class="col-sm">
+							<label for="orp">Oxidation-Reduction Potential</label>
+							<input type="number" class="form-control" id="orp" name="orp"  required>
+						  </div>
+					  </div>
+					  
+					  <br>
+					  <div class="form-group row">
+							<div class="col-sm">
+								<label for="ph">Water PH</label>
+								<input type="number" class="form-control" id="ph" name="ph" required>
+							  </div>
+			
+							  </div>
+						  <br>
+					
+					  <br>
+					  <div class="form-group">
+						<input class="btn btn-primary" type="submit" value="Result">
+					  </div>
+					  
+					  <!--Prediction Result-->
+					  <div id ="result">
+							<strong style="color:red">{{result}}</strong>
+					 </div>
+				     </div>
+			 </fieldset>
+			</form>
+			
+		</div>
+		
+	</body>
+</html>
+

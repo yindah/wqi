@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OUTLIER DETECTION SYSTEM FOR WATER QUALITY MONITORING</title>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <style>
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+    }
+    p {font-size: 16px;}
+    .margin {margin-bottom: 45px;}
+    .bg-1 { 
+      background-color: #1abc9c; /* Green */
+      color: #ffffff;
+    }
+    .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+    }
+    .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+    }
+    .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+    }
+    .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+    }
+    .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+    }
+    .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+    }
+
+    #navbar {
+    background-color: #1abc9c;
+    position: fixed;
+    top: -50px;
+    width: 100%;
+    display: block;
+    transition: top 0.3s;
+    }
+
+    #navbar a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 15px;
+    text-decoration: none;
+    font-size: 17px;
+    }
+
+    #navbar a:hover {
+    background-color: #ddd;
+    color: black;
+    }
+    </style>
+
+</head>
+<body>
+    <div id="navbar">
+        <a href="#home">HOME</a>
+        <a href="#about">ABOUT</a>
+        <a href="#account">LOGIN</a>
+    </div>
+
+    <!-- First Container -->
+<div class="container-fluid bg-1 text-center" id="home">
+    <h3 class="margin">Outlier Detection System For Water Quality Monitoring</h3>
+    <img src="{{url_for('static', filename='images/logo.png')}}" class="img-responsive img-circle margin" style="display:inline" alt="Logo" width="200" height="200">
+
+  </div>
+  
+  <!-- Second Container -->
+  <div class="container-fluid bg-2 text-center" id="about">
+    <h3 class="margin">ABOUT</h3>
+    <p>Put you about us here .... .... </p>
+  </div>
+
+<!-- Third Container -->
+   <div class="container-fluid bg-3 text-center" id="account">
+    <h3 class="margin">LOGIN</h3>
+
+    <div class="row">
+        <div class="container w-50">
+            <div class="nav row nav-pills me-3 justify-content-center" style="min-width: 100%;">
+                <button class="nav-link active" id="v-pills-login-tab" style="width: 50%;" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                    aria-selected="true">Login</button>
+                <button class="nav-link" id="v-pills-register-tab" style="width: 50%;" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
+                    aria-selected="false">Register</button>
+            </div>
+            <form>
+                <div class="form-group m-2">
+                    <label class="w-100" for="uname"><b>Username</b></label>
+                    <input class="form-control w-100" type="text" placeholder="Enter Username" name="uname" id="username" required>
+                </div>
+                <div class="form-group m-2">
+                    <label class="w-100" for="psw"><b>Password</b></label>
+                    <input class="form-control w-100" type="password" placeholder="Enter Password" name="psw" id="password" required>
+                </div>
+                <div class="form-group m-2" id="email_sec">
+                    <label class="w-100" for="email"><b>Email</b></label>
+                    <input class="form-control w-100" type="text" placeholder="Enter Email" name="email" id="email" required>
+                </div>
+            </form>
+
+            <div id="register_user_type" class="mx-auto" style="width: 200px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="html" name="usertype" value="false" checked>
+                    <label class="form-check-label" for="user">User</label>
+                </div>
+                <span style="width: 10px;"></span>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="css" name="usertype" value="true">
+                    <label fclass="form-check-label" for="admin">Admin</label>
+                </div>
+            </div>
+            <div class="row m-2">
+                <div class="btn-group w-100" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-danger w-50" id="CancelButton">Cancel</button>
+                    <button type="submit" class="btn btn-success w-50" id="LoginButton">Login</button>
+                    <button type="button" class="btn btn-success w-50" id="RegisterButton">Register</button>
+                </div>
+
+            </div>
+    
+    
+            <div class="row">
+                <div class="alert alert-success" role="alert" id="loginSuccess">
+                    Login Success.
+                </div>
+    
+                <div class="alert alert-danger" role="alert" id="loginFailed">
+                    Username or password is incorrect. Please try again.
+                </div>
+    
+                <div class="alert alert-success" role="alert" id="RegisterSuccess">
+                    Register successful!
+                </div>
+                <div class="alert alert-danger" role="alert" id="RegisterFailed">
+                    Username is been registered by other user. Please try with another username.
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+   
+    <div class="loader" style="display:none;"></div>
+
+</body>
+  
+ <!-- Footer -->
+<footer  class="container-fluid bg-4 text-center">
+    <p>Created By me, 2022</p> 
+    <script type=text/javascript>
+
+        $('#loginSuccess').hide();
+        $('#loginFailed').hide();
+        $('#RegisterSuccess').hide();
+        $('#RegisterFailed').hide();
+        $('#LoginButton').show()
+        $('#RegisterButton').hide()
+        $('#email_sec').hide()
+        $('#login_header').show();
+        $('#register_header').hide();
+        $('#register_user_type').hide();
+        
+        $('#v-pills-login-tab').click(function () {
+            $('#LoginButton').show()
+            $('#RegisterButton').hide()
+            $('#email_sec').hide()
+            $('#loginSuccess').hide();
+            $('#loginFailed').hide();
+            $('#RegisterSuccess').hide();
+            $('#RegisterFailed').hide();
+
+            $('#login_header').show();
+            $('#register_header').hide();
+            $('#register_user_type').hide();
+            
+        })
+        $('#v-pills-register-tab').click(function () {
+            $('#LoginButton').hide()
+            $('#RegisterButton').show()
+            $('#email_sec').show()
+            $('#loginSuccess').hide();
+            $('#loginFailed').hide();
+            $('#RegisterSuccess').hide();
+            $('#RegisterFailed').hide();
+            $('#login_header').hide();
+            $('#register_header').show();
+            $('#register_user_type').show();
+        })
+
+        //login button
+        $('#LoginButton').click(function() {
+  
+            $('.loader').show();
+            
+            //jquery get value from text form
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let is_admin = $('input[name="usertype"]:checked').val();
+
+            //construct ajax data
+            var data = new FormData();
+            data.append('username', username);
+            data.append('password', password);
+            data.append('is_admin', is_admin);
+
+            $.ajax({
+                type: 'POST',
+                url: '/login',
+                data: data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                async: true,
+                success: function(data) {
+                    // Get and display the result
+                    $('.loader').hide();
+                    if(data["login"] == "true"){
+                        console.log("success");
+                        $('#loginSuccess').show();
+                        $('#loginFailed').hide();
+                        $('#RegisterSuccess').hide();
+                        $('#RegisterFailed').hide();
+                        window.location.href = '/descriptive'
+                    }else{
+                        console.log("failed");
+                        $('#loginSuccess').hide();
+                        $('#loginFailed').show();
+                        $('#RegisterSuccess').hide();
+                        $('#RegisterFailed').hide();
+                    }
+                },
+                error: function() {
+                    $('.loader').hide();
+                    alert("Username or password is incorrect. Please try again!");
+                },
+            });
+        });
+
+        $('#RegisterButton').click(function() {
+  
+            $('.loader').show();
+            
+            //jquery get value from text form
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let email = $('#email').val();
+            let is_admin = $('input[name="usertype"]:checked').val();
+
+            //construct ajax data
+            var data = new FormData();
+            data.append('username', username);
+            data.append('password', password);
+            data.append('email', email);
+            data.append('is_admin', is_admin);
+
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                data: data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                async: true,
+                success: function(data) {
+                    // Get and display the result
+                    $('.loader').hide();
+                    if(data["register"] == "true"){
+                        console.log("success");
+                        $('#RegisterSuccess').show();
+                        $('#RegisterFailed').hide();
+                        $('#loginSuccess').hide();
+                        $('#loginFailed').hide();
+                        window.location.href = '/descriptive'
+                    }else{
+                        console.log("failed");
+                        $('#RegisterSuccess').hide();
+                        $('#RegisterFailed').show();
+                        $('#loginSuccess').hide();
+                        $('#loginFailed').hide();
+                    }
+                },
+                error: function() {
+                    $('.loader').hide();
+                    alert("Username or password is incorrect. Please try again!");
+                },
+            });
+        });
+
+$('#RegisterButton').click(function() {
+  
+            $('.loader').show();
+            
+            //jquery get value from text form
+            let username = $('#username').val();
+            let password = $('#password').val();
+            let email = $('#email').val();
+            let is_admin = $('input[name="usertype"]:checked').val();
+
+            //construct ajax data
+            var data = new FormData();
+            data.append('username', username);
+            data.append('password', password);
+            data.append('email', email);
+            data.append('is_admin', is_admin);
+
+            $.ajax({
+                type: 'POST',
+                url: '/register',
+                data: data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                async: true,
+                success: function(data) {
+                    // Get and display the result
+                    $('.loader').hide();
+                    if(data["register"] == "true"){
+                        console.log("success");
+                        $('#RegisterSuccess').show();
+                        $('#RegisterFailed').hide();
+                        $('#loginSuccess').hide();
+                        $('#loginFailed').hide();
+                        window.location.href = '/descriptive'
+                    }else{
+                        console.log("failed");
+                        $('#RegisterSuccess').hide();
+                        $('#RegisterFailed').show();
+                        $('#loginSuccess').hide();
+                        $('#loginFailed').hide();
+                    }
+                },
+                error: function() {
+                    $('.loader').hide();
+                    alert("Username or password is incorrect. Please try again!");
+                },
+            });
+        });
+
+$('#CancelButton').click(function() {
+  
+  //jquery get value from text form
+  $('#username').val('');
+  $('#password').val('');
+  $('#email').val('');
+
+});
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-50px";
+  }
+}
+    </script>
+</footer>
+</html> 

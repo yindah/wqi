@@ -1,0 +1,99 @@
+<html>
+	<head>
+	<!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</head>
+	<body>
+	<!-- Java Script -->	
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+		
+		<!-- Navbar-->
+		<nav class="navbar navbar-dark bg-dark">
+			<span class="navbar-brand mb-0 h1">Water Quality Monitoring System</span>
+			<a href="{{url_for('descriptive')}}" class="w3-bar-item w3-button w3-hover-green">Descriptive</a>
+			<a href="{{url_for('anomaly')}}" class="w3-bar-item w3-button w3-hover-blue">Outlier Detection</a>
+			<a href="{{url_for('predictpage')}}" class="w3-bar-item w3-button w3-hover-teal">Predictive</a>
+			<a href="{{url_for('feedbackpage')}}" class="w3-bar-item w3-button w3-hover-teal">Feedback</a>
+			<a href="{{url_for('logout_nav')}}" class="w3-bar-item w3-button w3-hover-teal">Log Out</a>
+  
+</div>
+		</nav>
+		<!-- <div class="bd-example" align="middle"> -->
+
+<div class="m-2 ">
+	<!--<div class="row justify-content-center">-->
+		<div class="row justify-content-center mt-1">
+			<h5 class="mt-3"> LOF algorithm </h5>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col mx-2" width="50%">
+				<h6 class="mt-1">Data:</h6>
+				<img src="{{url_for('static', filename='images/lof before.png')}}" width="100%" />
+			</div>
+
+			<div class="col mx-2" width="50%">
+				<h6 class="mt-1"> Result: </h6>
+				<img id="lof_result" src="{{url_for('static', filename='images/lof after.png')}}" width="100%" />
+			</div>
+		</div>
+		<div class="row mb-3 mt-1">
+			<div class="col text-center">
+				<button class="btn btn-success w-35 center" id="lof_process">Run LOF algorithm</button>
+			</div>
+		</div>
+
+		<!--After-->
+		
+		<div class="row justify-content-center mt-1">
+			<h5 class="mt-3"> Isolation Forest algorithm</h5>
+		</div>
+		<div class="row justify-content-center">
+			<div class="col mx-2" width="50%">
+				<h6 class="mt-1">Data:</h6>
+				<img src="{{url_for('static', filename='images/iforest before.png')}}"  width="100%" />
+			</div>
+	
+			<div class="col mx-2" width="50%">
+				<h6 class="mt-1"> Result:</h6>
+				<img id="IF_result" src="{{url_for('static', filename='images/iforest after.png')}}" width="100%" />
+			</div>
+		</div>
+		<div class="row justify-content-center mt-1">
+				<button class="btn btn-success w-35" id="IF_process">Run Isolation Forest algorithm</button>
+		</div>
+		
+	<!--</div>-->
+</div>
+
+        
+</div>
+		
+	</body>
+
+	<footer>
+		<script type=text/javascript>
+				$('#lof_result').hide();
+				$('#IF_result').hide();
+			        //login button
+					$('#lof_process').click(function() {
+  
+  						$('#loader').show();
+						$('#lof_result').show();
+						$('#loader').hide();
+					})
+
+					$('#IF_process').click(function() {
+  
+						$('#loader').show();
+						$('#IF_result').show();
+						$('#loader').hide();
+					})
+		</script>
+	</footer>
+</html>
